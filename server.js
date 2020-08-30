@@ -50,6 +50,14 @@ app.get('/user/no-permission', (req, res) => {
   res.render('noPermission');
 });
 
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['email', 'profile'] }
+));
+
+app.get('/auth/google/callback', (req, res) => {
+  res.send(`I'm back from Google!`);
+});
+
 app.use('/', (req, res) => {
   res.status(404).render('notFound');
 });
