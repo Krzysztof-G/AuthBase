@@ -9,9 +9,9 @@ const session = require('express-session');
 const app = express();
 
 passport.use(new GoogleStrategy({
-  clientID: '600230589048-fcblas5tjlgjkuugr198tof5l461448t.apps.googleusercontent.com',
-  clientSecret: '5UTnJ7kETq6O0chypUZrGt_o',
-  callbackURL: 'http://localhost:8000/auth/google/callback'
+  clientID: process.env.clientID,
+  clientSecret: process.env.clientSecret,
+  callbackURL: process.env.callbackURL,
 }, (accessToken, refreshToken, profile, done) => {
 done(null, profile);
 }));
@@ -54,9 +54,11 @@ app.get('/auth/google',
   passport.authenticate('google', { scope: ['email', 'profile'] }
 ));
 
-app.get('/auth/google/callback', (req, res) => {
-  res.send(`I'm back from Google!`);
-});
+app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/user/no-permission' }),
+  (req, res) => {
+    res.redirect('/user/logged');
+  }
+);
 
 app.use('/', (req, res) => {
   res.status(404).render('notFound');
