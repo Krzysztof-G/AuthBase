@@ -1,0 +1,8 @@
+{
+  "name": "AuthBase",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Krzysztof-G/AuthBase.git",
+  "author": "Krzysztof Gumuła <k.gumula@icloud.com>",
+  "license": "MIT"
+}
